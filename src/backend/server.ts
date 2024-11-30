@@ -5,6 +5,7 @@ import brainstormRoutes from './routes/ai/brainstorm';
 
 const app = express();
 const port = process.env.PORT || 3015;
+const host = '0.0.0.0';
 
 app.use(cors({
     origin: ['http://localhost:3000', process.env.FRONTEND_URL || 'https://your-vercel-app.vercel.app'],
@@ -12,7 +13,6 @@ app.use(cors({
     credentials: true
   }));
 app.use(express.json());
-
 
 console.log('Initializing server...');
 
@@ -27,7 +27,7 @@ console.log('Brainstorm routes mounted at /v1/ai/brainstorm');
 
 if (require.main === module) {
   app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`Server running on http://${host}:${port}`);
   });
 }
 
