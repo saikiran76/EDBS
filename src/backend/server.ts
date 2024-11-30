@@ -4,7 +4,7 @@ import cors from 'cors';
 import brainstormRoutes from './routes/ai/brainstorm';
 
 const app = express();
-const port = process.env.PORT || 3015;
+const port = Number(process.env.PORT) || 3015;
 const host = '0.0.0.0';
 
 app.use(cors({
@@ -26,7 +26,7 @@ app.use('/v1/ai/brainstorm', brainstormRoutes);
 console.log('Brainstorm routes mounted at /v1/ai/brainstorm');
 
 if (require.main === module) {
-  app.listen(port, () => {
+  app.listen(port, host, () => {
     console.log(`Server running on http://${host}:${port}`);
   });
 }
