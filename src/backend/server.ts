@@ -6,19 +6,21 @@ import brainstormRoutes from './routes/ai/brainstorm';
 const app = express();
 const port = process.env.PORT || 3015;
 
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:3000'],
+    methods: ['POST', 'OPTIONS'],
+    credentials: true
+  }));
 app.use(express.json());
 
-// Debug logging
+
 console.log('Initializing server...');
 
-// Health check endpoint
 app.get('/health', (_: Request, res: Response) => {
   res.status(200).send('OK');
   console.log('Health check endpoint called');
 });
 
-// AI routes
 console.log('Mounting brainstorm routes...');
 app.use('/v1/ai/brainstorm', brainstormRoutes);
 console.log('Brainstorm routes mounted at /v1/ai/brainstorm');
