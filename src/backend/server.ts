@@ -26,5 +26,7 @@ app.use('/v1/ai/brainstorm', brainstormRoutes);
 console.log('Brainstorm routes mounted at /v1/ai/brainstorm');
 
 app.listen(port, () => {
-  console.log(`AI backend server running on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
+
+export default app;
