@@ -7,19 +7,21 @@ import checker from "vite-plugin-checker";
 import { createHtmlPlugin } from "vite-plugin-html";
 import Sitemap from "vite-plugin-sitemap";
 import { woff2BrowserPlugin } from "../scripts/woff2/woff2-vite-plugins";
+import path from "path";
 
 export default defineConfig(({ mode }) => {
-  // To load .env variables
   const envVars = loadEnv(mode, `../`);
-  // https://vitejs.dev/config/
+  
   return {
+    resolve: {
+      alias: {
+        '@excalidraw/excalidraw': path.resolve(__dirname, '../packages/excalidraw/index.ts'),
+      }
+    },
     server: {
       port: Number(envVars.VITE_APP_PORT || 3000),
-      // open the browser
       open: true,
     },
-    // We need to specify the envDir since now there are no
-    //more located in parallel with the vite.config.ts file but in parent dir
     envDir: "../",
     build: {
       outDir: "build",
@@ -30,27 +32,20 @@ export default defineConfig(({ mode }) => {
               const family = chunkInfo.name.split("-")[0];
               return `fonts/${family}/[name][extname]`;
             }
-
             return "assets/[name]-[hash][extname]";
           },
-          // Creating separate chunk for locales except for en and percentages.json so they
-          // can be cached at runtime and not merged with
-          // app precache. en.json and percentages.json are needed for first load
-          // or fallback hence not clubbing with locales so first load followed by offline mode works fine. This is how CRA used to work too.
           manualChunks(id) {
             if (
               id.includes("packages/excalidraw/locales") &&
               id.match(/en.json|percentages.json/) === null
             ) {
               const index = id.indexOf("locales/");
-              // Taking the substring after "locales/"
               return `locales/${id.substring(index + 8)}`;
             }
           },
         },
       },
       sourcemap: true,
-      // don't auto-inline small assets (i.e. fonts hosted on CDN)
       assetsInlineLimit: 0,
     },
     plugins: [
@@ -58,7 +53,6 @@ export default defineConfig(({ mode }) => {
         hostname: "https://excalidraw.com",
         outDir: "build",
         changefreq: "monthly",
-        // its static in public folder
         generateRobotsTxt: false,
       }),
       woff2BrowserPlugin(),
@@ -79,12 +73,10 @@ export default defineConfig(({ mode }) => {
       VitePWA({
         registerType: "autoUpdate",
         devOptions: {
-          /* set this flag to true to enable in Development mode */
           enabled: envVars.VITE_APP_ENABLE_PWA === "true",
         },
 
         workbox: {
-          // don't precache fonts, locales and separate chunks
           globIgnores: [
             "fonts.css",
             "**/locales/**",
@@ -99,10 +91,9 @@ export default defineConfig(({ mode }) => {
                 cacheName: "fonts",
                 expiration: {
                   maxEntries: 1000,
-                  maxAgeSeconds: 60 * 60 * 24 * 90, // 90 days
+                  maxAgeSeconds: 60 * 60 * 24 * 90,
                 },
                 cacheableResponse: {
-                  // 0 to cache "opaque" responses from cross-origin requests (i.e. CDN)
                   statuses: [0, 200],
                 },
               },
@@ -124,7 +115,7 @@ export default defineConfig(({ mode }) => {
                 cacheName: "locales",
                 expiration: {
                   maxEntries: 50,
-                  maxAgeSeconds: 60 * 60 * 24 * 30, // <== 30 days
+                  maxAgeSeconds: 60 * 60 * 24 * 30,
                 },
               },
             },
@@ -135,7 +126,7 @@ export default defineConfig(({ mode }) => {
                 cacheName: "chunk",
                 expiration: {
                   maxEntries: 50,
-                  maxAgeSeconds: 60 * 60 * 24 * 90, // <== 90 days
+                  maxAgeSeconds: 60 * 60 * 24 * 90,
                 },
               },
             },
