@@ -1,7 +1,7 @@
 {
   "public": true,
   "outputDirectory": "excalidraw-app/build",
-  "buildCommand": "cd excalidraw-app && yarn build:app && yarn build:version",
+  "buildCommand": "cd excalidraw-app && yarn add cross-env --dev && yarn && npx vite build --mode production && yarn build:version",
   "installCommand": "yarn install",
   "headers": [
     {
