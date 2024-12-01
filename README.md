@@ -16,6 +16,9 @@
 - Implementation flow
 ![alt text](image-2.png)
 
+- A look at the feature (example: business elements)
+![alt text](image-3.png)
+
 ### The AI API (Backend service)
 - Gemini AI
 - The AI model used is gemini-pro
