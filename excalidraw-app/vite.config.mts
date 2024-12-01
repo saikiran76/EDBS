@@ -21,19 +21,12 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: "build",
       rollupOptions: {
-        input: {
-          main: path.resolve(__dirname, 'index.html')
-        },
+        input: path.resolve(__dirname, 'index.html'),
         external: [
           'pica', 
           'lodash.throttle', 
           'path2d-polyfill',
-        ],
-        output: {
-          manualChunks: {
-            'excalidraw-assets': ['../packages/excalidraw/src/index.ts']
-          }
-        }
+        ]
       }
     },
     plugins: [
@@ -49,15 +42,14 @@ export default defineConfig(({ mode }) => {
       }),
       createHtmlPlugin({
         minify: true,
+        template: 'index.html',
+        entry: './index.tsx',
         inject: {
           data: {
-            script: '<script type="module" src="/index.tsx"></script>'
+            title: 'Excalidraw'
           }
         }
       })
-    ],
-    optimizeDeps: {
-      include: []
-    },
+    ]
   };
 });
