@@ -26,25 +26,18 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: "build",
       rollupOptions: {
-        external: ['pica', 'lodash.throttle', 'canvas-roundrect-polyfill'],
+        external: [
+          'pica', 
+          'lodash.throttle', 
+          'canvas-roundrect-polyfill',
+          'workbox-build',
+          'workbox-window'
+        ],
         output: {
-          assetFileNames(chunkInfo) {
-            if (chunkInfo?.name?.endsWith(".woff2")) {
-              const family = chunkInfo.name.split("-")[0];
-              return `fonts/${family}/[name][extname]`;
-            }
-            return "assets/[name]-[hash][extname]";
-          },
-          manualChunks(id) {
-            if (
-              id.includes("packages/excalidraw/locales") &&
-              id.match(/en.json|percentages.json/) === null
-            ) {
-              const index = id.indexOf("locales/");
-              return `locales/${id.substring(index + 8)}`;
-            }
-          },
-        },
+          manualChunks: {
+            'excalidraw-assets': ['../packages/excalidraw/index.ts']
+          }
+        }
       },
       sourcemap: true,
       assetsInlineLimit: 0,
@@ -76,153 +69,9 @@ export default defineConfig(({ mode }) => {
         devOptions: {
           enabled: envVars.VITE_APP_ENABLE_PWA === "true",
         },
-
         workbox: {
-          globIgnores: [
-            "fonts.css",
-            "**/locales/**",
-            "service-worker.js",
-            "**/*.chunk-*.js",
-          ],
-          runtimeCaching: [
-            {
-              urlPattern: new RegExp(".+.woff2"),
-              handler: "CacheFirst",
-              options: {
-                cacheName: "fonts",
-                expiration: {
-                  maxEntries: 1000,
-                  maxAgeSeconds: 60 * 60 * 24 * 90,
-                },
-                cacheableResponse: {
-                  statuses: [0, 200],
-                },
-              },
-            },
-            {
-              urlPattern: new RegExp("fonts.css"),
-              handler: "StaleWhileRevalidate",
-              options: {
-                cacheName: "fonts",
-                expiration: {
-                  maxEntries: 50,
-                },
-              },
-            },
-            {
-              urlPattern: new RegExp("locales/[^/]+.js"),
-              handler: "CacheFirst",
-              options: {
-                cacheName: "locales",
-                expiration: {
-                  maxEntries: 50,
-                  maxAgeSeconds: 60 * 60 * 24 * 30,
-                },
-              },
-            },
-            {
-              urlPattern: new RegExp(".chunk-.+.js"),
-              handler: "CacheFirst",
-              options: {
-                cacheName: "chunk",
-                expiration: {
-                  maxEntries: 50,
-                  maxAgeSeconds: 60 * 60 * 24 * 90,
-                },
-              },
-            },
-          ],
-        },
-        manifest: {
-          short_name: "Excalidraw",
-          name: "Excalidraw",
-          description:
-            "Excalidraw is a whiteboard tool that lets you easily sketch diagrams that have a hand-drawn feel to them.",
-          icons: [
-            {
-              src: "android-chrome-192x192.png",
-              sizes: "192x192",
-              type: "image/png",
-            },
-            {
-              src: "apple-touch-icon.png",
-              type: "image/png",
-              sizes: "180x180",
-            },
-            {
-              src: "favicon-32x32.png",
-              sizes: "32x32",
-              type: "image/png",
-            },
-            {
-              src: "favicon-16x16.png",
-              sizes: "16x16",
-              type: "image/png",
-            },
-          ],
-          start_url: "/",
-          id:"excalidraw",
-          display: "standalone",
-          theme_color: "#121212",
-          background_color: "#ffffff",
-          file_handlers: [
-            {
-              action: "/",
-              accept: {
-                "application/vnd.excalidraw+json": [".excalidraw"],
-              },
-            },
-          ],
-          share_target: {
-            action: "/web-share-target",
-            method: "POST",
-            enctype: "multipart/form-data",
-            params: {
-              files: [
-                {
-                  name: "file",
-                  accept: [
-                    "application/vnd.excalidraw+json",
-                    "application/json",
-                    ".excalidraw",
-                  ],
-                },
-              ],
-            },
-          },
-          screenshots: [
-            {
-              src: "/screenshots/virtual-whiteboard.png",
-              type: "image/png",
-              sizes: "462x945",
-            },
-            {
-              src: "/screenshots/wireframe.png",
-              type: "image/png",
-              sizes: "462x945",
-            },
-            {
-              src: "/screenshots/illustration.png",
-              type: "image/png",
-              sizes: "462x945",
-            },
-            {
-              src: "/screenshots/shapes.png",
-              type: "image/png",
-              sizes: "462x945",
-            },
-            {
-              src: "/screenshots/collaboration.png",
-              type: "image/png",
-              sizes: "462x945",
-            },
-            {
-              src: "/screenshots/export.png",
-              type: "image/png",
-              sizes: "462x945",
-            },
-          ],
-        },
+          globPatterns: ['**/*.{js,css,html,woff2,png}']
+        }
       }),
       createHtmlPlugin({
         minify: true,
