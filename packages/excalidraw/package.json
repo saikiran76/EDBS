@@ -1,5 +1,7 @@
 {
   "name": "@excalidraw/excalidraw",
+  "version": "0.1.0",
+  "private": true,
   "main": "dist/excalidraw.production.min.js",
   "module": "dist/excalidraw.production.min.js",
   "types": "types/packages/excalidraw/index.d.ts",
