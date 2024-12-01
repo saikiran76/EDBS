@@ -26,6 +26,8 @@
     "node": "18.0.0 - 22.x.x"
   },
   "dependencies": {
+    "workbox-build": "^7.0.0",
+    "workbox-window": "^7.0.0",
     "lodash.throttle": "^4.1.1",
     "pica": "^9.0.1",
     "@excalidraw/random-username": "1.0.0",
@@ -39,7 +41,10 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "socket.io-client": "4.7.2",
-    "vite-plugin-html": "3.2.2"
+    "vite-plugin-html": "3.2.2",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-syntax-flow": "^7.14.5",
+    "@babel/plugin-transform-react-jsx": "^7.14.9"
   },
   "prettier": "@excalidraw/prettier-config",
   "scripts": {
