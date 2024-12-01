@@ -26,12 +26,6 @@
     "node": "18.0.0 - 22.x.x"
   },
   "dependencies": {
-    "path2d-polyfill": "^2.0.1",
-    "workbox-build": "^7.0.0",
-    "workbox-window": "^7.0.0",
-    "lodash.throttle": "^4.1.1",
-    "pica": "^9.0.1",
-    "image-blob-reduce": "^4.1.0",
     "@excalidraw/random-username": "1.0.0",
     "@sentry/browser": "6.2.5",
     "@sentry/integrations": "6.2.5",
@@ -39,10 +33,16 @@
     "firebase": "8.3.3",
     "i18next-browser-languagedetector": "6.1.4",
     "idb-keyval": "6.0.3",
+    "image-blob-reduce": "^4.1.0",
     "jotai": "1.13.1",
+    "lodash.throttle": "^4.1.1",
+    "path2d-polyfill": "^2.0.1",
+    "pica": "^9.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "socket.io-client": "4.7.2"
+    "socket.io-client": "4.7.2",
+    "workbox-build": "^7.0.0",
+    "workbox-window": "^7.0.0"
   },
   "prettier": "@excalidraw/prettier-config",
   "scripts": {
@@ -56,11 +56,11 @@
     "build:preview": "yarn build && vite preview --port 5000"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^3.1.0",
     "cross-env": "7.0.3",
     "sass": "^1.69.0",
-    "vite-plugin-sitemap": "0.7.1",
     "vite": "^5.0.12",
     "vite-plugin-html": "^3.2.2",
-    "@vitejs/plugin-react": "^3.1.0"
+    "vite-plugin-sitemap": "0.7.1"
   }
 }
