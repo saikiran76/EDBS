@@ -30,19 +30,7 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         input: {
           app: path.resolve(__dirname, 'index.html')
-        },
-        external: [
-          'pica', 
-          'lodash.throttle',
-          'path2d-polyfill',
-          'es6-promise-pool',
-          'fuzzy',
-          'tunnel-rat',
-          'fractional-indexing',
-          '@excalidraw/mermaid-to-excalidraw',
-          '@radix-ui/react-popover',
-          '@radix-ui/react-tabs'
-        ]
+        }
       }
     },
     plugins: [
