@@ -23,7 +23,7 @@ export const BrainstormingPanel: React.FC<BrainstormingPanelProps> = ({ excalidr
       setBrainstormState(prev => ({ ...prev, isLoading: true, error: null }));
       trackEvent("ai", "generate (start)", "brainstorm");
 
-      const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3015';
+      const API_URL = import.meta.env.VITE_AIBACKEND_URL || 'https://brainstormbackend-vh9n.onrender.com';
       
       const response = await fetch(
         `${API_URL}/v1/ai/brainstorm/generate`,
