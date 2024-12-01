@@ -5,7 +5,6 @@ import { ViteEjsPlugin } from "vite-plugin-ejs";
 import { VitePWA } from "vite-plugin-pwa";
 import { createHtmlPlugin } from "vite-plugin-html";
 import Sitemap from "vite-plugin-sitemap";
-import { woff2BrowserPlugin } from "../scripts/woff2/woff2-vite-plugins";
 import path from "path";
 
 export default defineConfig(({ mode }) => {
@@ -28,23 +27,22 @@ export default defineConfig(({ mode }) => {
         },
         external: [
           'pica', 
-          'lodash.throttle', 
+          'lodash.throttle',
           'path2d-polyfill',
-        ],
-        output: {
-          manualChunks(id) {
-            if (id.includes('node_modules')) {
-              return 'vendor';
-            }
-          }
-        }
+        ]
       }
     },
     plugins: [
       react(),
       svgrPlugin(),
       ViteEjsPlugin(),
-      woff2BrowserPlugin(),
+      createHtmlPlugin({
+        inject: {
+          data: {
+            version: process.env.VITE_APP_GIT_SHA || 'dev'
+          }
+        }
+      }),
       VitePWA({
         registerType: "autoUpdate",
         devOptions: {
@@ -52,19 +50,16 @@ export default defineConfig(({ mode }) => {
         },
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}']
-        }
-      }),
-      createHtmlPlugin({
-        minify: true,
-        inject: {
-          data: {
-            title: 'Excalidraw'
-          }
+        },
+        manifest: {
+          name: "Excalidraw",
+          short_name: "Excalidraw",
+          theme_color: "#000000",
+          start_url: "./",
+          display: "standalone",
+          background_color: "#ffffff"
         }
       })
-    ],
-    optimizeDeps: {
-      include: ['react', 'react-dom']
-    }
+    ]
   };
 });
