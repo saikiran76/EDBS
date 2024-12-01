@@ -25,3 +25,5 @@
 - The API endpoint is https://brainstormbackend-vh9n.onrender.com/v1/ai/brainstorm/generate (This custom API is deployed on Render)
 - Repository: https://github.com/saikiran76/BrainStormBackend
 
+### Note:
+- The API would spin down if not used for a while. So, the first request would take a while to respond. Subsequent requests would be faster since its is deployed on Render's free tier plan.
