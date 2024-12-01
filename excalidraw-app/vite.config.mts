@@ -24,7 +24,6 @@ export default defineConfig(({ mode }) => {
           'pica', 
           'lodash.throttle', 
           'path2d-polyfill',
-          'image-blob-reduce'
         ],
         output: {
           manualChunks: {
@@ -51,7 +50,7 @@ export default defineConfig(({ mode }) => {
       })
     ],
     optimizeDeps: {
-      include: ['image-blob-reduce']
-    }
+      include: []
+    },
   };
 });

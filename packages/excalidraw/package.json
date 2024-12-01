@@ -9,5 +9,11 @@
       "import": "./dist/excalidraw.production.min.js",
       "require": "./dist/excalidraw.production.min.js"
     }
+  },
+  "dependencies": {
+    "image-blob-reduce": "^4.1.0",
+    "pica": "^9.0.1",
+    "lodash.throttle": "^4.1.1",
+    "path2d-polyfill": "^2.0.1"
   }
 }
