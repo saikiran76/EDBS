@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
   
   return {
     root: __dirname,
+    base: "./",
     resolve: {
       alias: {
         '@excalidraw/excalidraw': path.resolve(__dirname, '../packages/excalidraw/src/index.ts'),
@@ -20,13 +21,23 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       outDir: "build",
+      assetsDir: "assets",
       rollupOptions: {
-        input: path.resolve(__dirname, 'index.html'),
+        input: {
+          app: path.resolve(__dirname, 'index.html')
+        },
         external: [
           'pica', 
           'lodash.throttle', 
           'path2d-polyfill',
-        ]
+        ],
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          }
+        }
       }
     },
     plugins: [
@@ -38,18 +49,22 @@ export default defineConfig(({ mode }) => {
         registerType: "autoUpdate",
         devOptions: {
           enabled: envVars.VITE_APP_ENABLE_PWA === "true",
+        },
+        workbox: {
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}']
         }
       }),
       createHtmlPlugin({
         minify: true,
-        template: 'index.html',
-        entry: './index.tsx',
         inject: {
           data: {
             title: 'Excalidraw'
           }
         }
       })
-    ]
+    ],
+    optimizeDeps: {
+      include: ['react', 'react-dom']
+    }
   };
 });
