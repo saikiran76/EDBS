@@ -3838,7 +3838,7 @@ caniuse-lite@^1.0.30001669:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001684.tgz#0eca437bab7d5f03452ff0ef9de8299be6b08e16"
   integrity sha512-G1LRwLIQjBQoyq0ZJGqGIJUXzJ8irpbjHLpVRXDvBEScFJ9b17sgK6vlx0GAJFE21okD7zXl08rRRUfq6HdoEQ==
 
-canvas-roundrect-polyfill@^1.0.0:
+canvas-roundrect-polyfill@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/canvas-roundrect-polyfill/-/canvas-roundrect-polyfill-0.0.1.tgz#70bf107ebe2037f26d839d7f809a26f4a95f5696"
   integrity sha512-yWq+R3U3jE+coOeEb3a3GgE2j/0MMiDKM/QpLb6h9ihf5fGY9UXtvK9o4vNqjWXoZz7/3EaSVU3IX53TvFFUOw==
