@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
   return {
     resolve: {
       alias: {
-        '@excalidraw/excalidraw': path.resolve(__dirname, '../packages/excalidraw/index.ts'),
+        '@excalidraw/excalidraw': path.resolve(__dirname, '../packages/excalidraw/src/index.ts'),
       }
     },
     build: {
