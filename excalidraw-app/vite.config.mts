@@ -3,7 +3,6 @@ import react from "@vitejs/plugin-react";
 import svgrPlugin from "vite-plugin-svgr";
 import { ViteEjsPlugin } from "vite-plugin-ejs";
 import { VitePWA } from "vite-plugin-pwa";
-import checker from "vite-plugin-checker";
 import { createHtmlPlugin } from "vite-plugin-html";
 import Sitemap from "vite-plugin-sitemap";
 import { woff2BrowserPlugin } from "../scripts/woff2/woff2-vite-plugins";
@@ -21,7 +20,12 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: "build",
       rollupOptions: {
-        external: ['pica', 'lodash.throttle', 'path2d-polyfill'],
+        external: [
+          'pica', 
+          'lodash.throttle', 
+          'path2d-polyfill',
+          'image-blob-reduce'
+        ],
         output: {
           manualChunks: {
             'excalidraw-assets': ['../packages/excalidraw/index.ts']
@@ -42,7 +46,12 @@ export default defineConfig(({ mode }) => {
       }),
       createHtmlPlugin({
         minify: true,
+        entry: path.resolve(__dirname, 'src/index.tsx'),
+        template: 'index.html'
       })
-    ]
+    ],
+    optimizeDeps: {
+      include: ['image-blob-reduce']
+    }
   };
 });
