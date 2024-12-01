@@ -48,7 +48,12 @@ export default defineConfig(({ mode }) => {
         }
       }),
       createHtmlPlugin({
-        minify: true
+        minify: true,
+        inject: {
+          data: {
+            script: '<script type="module" src="/index.tsx"></script>'
+          }
+        }
       })
     ],
     optimizeDeps: {
