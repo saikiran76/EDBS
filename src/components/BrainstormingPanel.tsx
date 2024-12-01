@@ -23,7 +23,7 @@ export const BrainstormingPanel: React.FC<BrainstormingPanelProps> = ({ excalidr
       setBrainstormState(prev => ({ ...prev, isLoading: true, error: null }));
       trackEvent("ai", "generate (start)", "brainstorm");
 
-      const API_URL = 'http://localhost:3015';
+      const API_URL = process.env.BACKEND_URL || 'http://localhost:3015';
       
       const response = await fetch(
         `${API_URL}/v1/ai/brainstorm/generate`,
@@ -44,7 +44,7 @@ export const BrainstormingPanel: React.FC<BrainstormingPanelProps> = ({ excalidr
         throw new Error(`AI service connection failed. Please ensure the backend server is running on ${API_URL}`);
       });
 
-      // Handle rate limits similar to TTDDialog.tsx
+    
       const rateLimit = response.headers.has('X-Ratelimit-Limit')
         ? parseInt(response.headers.get('X-Ratelimit-Limit') || '0', 10)
         : undefined;
@@ -91,7 +91,6 @@ export const BrainstormingPanel: React.FC<BrainstormingPanelProps> = ({ excalidr
     }
   };
 
-  // Helper function to get image data
   const getImageData = async (api: ExcalidrawImperativeAPI) => {
     const blob = await exportToBlob({
       elements: api.getSceneElements(),
