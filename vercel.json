@@ -1,8 +1,8 @@
 {
   "public": true,
   "outputDirectory": "excalidraw-app/build",
-  "buildCommand": "cd excalidraw-app && yarn install && yarn build",
-  "installCommand": "yarn install",
+  "buildCommand": "cd excalidraw-app && yarn install --frozen-lockfile && yarn build",
+  "installCommand": "yarn install --frozen-lockfile",
   "headers": [
     {
       "source": "/(.*)",
