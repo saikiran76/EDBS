@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => {
         external: [
           'pica', 
           'lodash.throttle', 
-          'canvas-roundrect-polyfill',
+          'roundrect-polyfill',
           'workbox-build',
           'workbox-window'
         ],
