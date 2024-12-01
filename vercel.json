@@ -1,8 +1,8 @@
 {
   "public": true,
   "outputDirectory": "excalidraw-app/build",
-  "buildCommand": "cd excalidraw-app && yarn add cross-env vite @vitejs/plugin-react vite-plugin-svgr vite-plugin-ejs vite-plugin-pwa --dev && yarn && yarn build:app && yarn build:version",
-  "installCommand": "yarn install",
+  "buildCommand": "yarn workspace excalidraw-app build",
+  "installCommand": "yarn install --frozen-lockfile",
   "headers": [
     {
       "source": "/(.*)",
