@@ -12,6 +12,7 @@ export default defineConfig(({ mode }) => {
   const envVars = loadEnv(mode, `../`);
   
   return {
+    root: __dirname,
     resolve: {
       alias: {
         '@excalidraw/excalidraw': path.resolve(__dirname, '../packages/excalidraw/src/index.ts'),
@@ -20,6 +21,9 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: "build",
       rollupOptions: {
+        input: {
+          main: path.resolve(__dirname, 'index.html')
+        },
         external: [
           'pica', 
           'lodash.throttle', 
@@ -27,7 +31,7 @@ export default defineConfig(({ mode }) => {
         ],
         output: {
           manualChunks: {
-            'excalidraw-assets': ['../packages/excalidraw/index.ts']
+            'excalidraw-assets': ['../packages/excalidraw/src/index.ts']
           }
         }
       }
@@ -44,9 +48,7 @@ export default defineConfig(({ mode }) => {
         }
       }),
       createHtmlPlugin({
-        minify: true,
-        entry: path.resolve(__dirname, 'src/index.tsx'),
-        template: 'index.html'
+        minify: true
       })
     ],
     optimizeDeps: {
