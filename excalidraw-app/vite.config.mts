@@ -18,65 +18,31 @@ export default defineConfig(({ mode }) => {
         '@excalidraw/excalidraw': path.resolve(__dirname, '../packages/excalidraw/index.ts'),
       }
     },
-    server: {
-      port: Number(envVars.VITE_APP_PORT || 3000),
-      open: true,
-    },
-    envDir: "../",
     build: {
       outDir: "build",
       rollupOptions: {
-        external: [
-          'pica', 
-          'lodash.throttle', 
-          'path2d-polyfill',
-          'workbox-build',
-          'workbox-window'
-        ],
+        external: ['pica', 'lodash.throttle', 'path2d-polyfill'],
         output: {
           manualChunks: {
             'excalidraw-assets': ['../packages/excalidraw/index.ts']
           }
         }
-      },
-      sourcemap: true,
-      assetsInlineLimit: 0,
+      }
     },
     plugins: [
-      Sitemap({
-        hostname: "https://excalidraw.com",
-        outDir: "build",
-        changefreq: "monthly",
-        generateRobotsTxt: false,
-      }),
-      woff2BrowserPlugin(),
       react(),
-      checker({
-        typescript: true,
-        eslint:
-          envVars.VITE_APP_ENABLE_ESLINT === "false"
-            ? undefined
-            : { lintCommand: 'eslint "./**/*.{js,ts,tsx}"' },
-        overlay: {
-          initialIsOpen: envVars.VITE_APP_COLLAPSE_OVERLAY === "false",
-          badgeStyle: "margin-bottom: 4rem; margin-left: 1rem",
-        },
-      }),
       svgrPlugin(),
       ViteEjsPlugin(),
+      woff2BrowserPlugin(),
       VitePWA({
         registerType: "autoUpdate",
         devOptions: {
           enabled: envVars.VITE_APP_ENABLE_PWA === "true",
-        },
-        workbox: {
-          globPatterns: ['**/*.{js,css,html,woff2,png}']
         }
       }),
       createHtmlPlugin({
         minify: true,
-      }),
-    ],
-    publicDir: "../public",
+      })
+    ]
   };
 });
