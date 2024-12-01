@@ -3,16 +3,19 @@ import react from "@vitejs/plugin-react";
 import svgrPlugin from "vite-plugin-svgr";
 import { ViteEjsPlugin } from "vite-plugin-ejs";
 import { VitePWA } from "vite-plugin-pwa";
-import { createHtmlPlugin } from "vite-plugin-html";
-import Sitemap from "vite-plugin-sitemap";
 import path from "path";
 
 export default defineConfig(({ mode }) => {
-  const envVars = loadEnv(mode, `../`);
+  const envVars = loadEnv(mode, process.cwd(), '');
   
   return {
     root: __dirname,
     base: "./",
+    define: {
+      'process.env.VITE_APP_GIT_SHA': JSON.stringify(process.env.VERCEL_GIT_COMMIT_SHA),
+      'process.env.VITE_APP_ENABLE_TRACKING': JSON.stringify(true),
+      'import.meta.env.VITE_APP_GIT_SHA': JSON.stringify(process.env.VERCEL_GIT_COMMIT_SHA)
+    },
     resolve: {
       alias: {
         '@excalidraw/excalidraw': path.resolve(__dirname, '../packages/excalidraw/src/index.ts'),
@@ -36,17 +39,10 @@ export default defineConfig(({ mode }) => {
       react(),
       svgrPlugin(),
       ViteEjsPlugin(),
-      createHtmlPlugin({
-        inject: {
-          data: {
-            version: process.env.VITE_APP_GIT_SHA || 'dev'
-          }
-        }
-      }),
       VitePWA({
         registerType: "autoUpdate",
         devOptions: {
-          enabled: envVars.VITE_APP_ENABLE_PWA === "true",
+          enabled: true
         },
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}']
