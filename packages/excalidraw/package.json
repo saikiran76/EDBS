@@ -17,5 +17,6 @@
     "pica": "^9.0.1",
     "lodash.throttle": "^4.1.1",
     "path2d-polyfill": "^2.0.1"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }
