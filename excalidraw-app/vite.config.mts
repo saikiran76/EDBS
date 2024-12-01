@@ -7,14 +7,17 @@ import path from "path";
 
 export default defineConfig(({ mode }) => {
   const envVars = loadEnv(mode, process.cwd(), '');
+  const gitSha = process.env.VERCEL_GIT_COMMIT_SHA || '';
   
   return {
     root: __dirname,
     base: "./",
     define: {
-      'process.env.VITE_APP_GIT_SHA': JSON.stringify(process.env.VERCEL_GIT_COMMIT_SHA),
-      'process.env.VITE_APP_ENABLE_TRACKING': JSON.stringify(true),
-      'import.meta.env.VITE_APP_GIT_SHA': JSON.stringify(process.env.VERCEL_GIT_COMMIT_SHA)
+      'process.env': {
+        VITE_APP_GIT_SHA: JSON.stringify(gitSha),
+        VITE_APP_ENABLE_TRACKING: JSON.stringify(true),
+      },
+      'import.meta.env.VITE_APP_GIT_SHA': JSON.stringify(gitSha)
     },
     resolve: {
       alias: {
