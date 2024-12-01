@@ -1,8 +1,8 @@
 {
   "public": true,
   "outputDirectory": "excalidraw-app/build",
-  "buildCommand": "cd excalidraw-app && yarn install && yarn add vite@5.0.12 --dev && yarn build:app && yarn build:version",
-  "installCommand": "yarn install --frozen-lockfile",
+  "buildCommand": "cd excalidraw-app && yarn build:app && yarn build:version",
+  "installCommand": "yarn install",
   "headers": [
     {
       "source": "/(.*)",

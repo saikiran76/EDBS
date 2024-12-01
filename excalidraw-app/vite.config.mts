@@ -35,6 +35,13 @@ export default defineConfig(({ mode }) => {
           'pica', 
           'lodash.throttle',
           'path2d-polyfill',
+          'es6-promise-pool',
+          'fuzzy',
+          'tunnel-rat',
+          'fractional-indexing',
+          '@excalidraw/mermaid-to-excalidraw',
+          '@radix-ui/react-popover',
+          '@radix-ui/react-tabs'
         ]
       }
     },
