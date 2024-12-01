@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: "build",
       rollupOptions: {
-        external: ['pica', 'lodash.throttle'],
+        external: ['pica', 'lodash.throttle', 'canvas-roundrect-polyfill'],
         output: {
           assetFileNames(chunkInfo) {
             if (chunkInfo?.name?.endsWith(".woff2")) {

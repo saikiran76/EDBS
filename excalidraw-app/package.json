@@ -26,6 +26,7 @@
     "node": "18.0.0 - 22.x.x"
   },
   "dependencies": {
+    "canvas-roundrect-polyfill": "^1.0.0",
     "workbox-build": "^7.0.0",
     "workbox-window": "^7.0.0",
     "lodash.throttle": "^4.1.1",
